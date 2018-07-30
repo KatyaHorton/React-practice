@@ -1,8 +1,9 @@
-# Contacts Project
+# Contacts Project 
+### Udacity React Practice
 
 This repo is a code-along with the 6th project in the [Front End Web Development Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
 
-Most of the commits in this repository correspond to videos in the program.
+Most of the commits in this repository correspond to videos in the program with the detailed comments for proper understanding of the prosess. 
 
 ## Project Setup
 
@@ -15,6 +16,14 @@ Most of the commits in this repository correspond to videos in the program.
 	- Checkout from the server directory 
 	- Install the project dependencies with ```npm install```
 	- Start the server with ```node server.js```
+6. Scaffolding React App
+ 	- Initialize a new project with ```npm install -g create-react-app```
+	- CD to the directory accordingly, run ```create-react-app NameOfYourNewApp```
+
+
+## Project Practice Order 
+
+
 
 ## Contributing
 
