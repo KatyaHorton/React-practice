@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts.js'
 
-const contacts = [
+
+
+class App extends Component {
+	
+//creates a state property which manages the contacts array inside an App component	
+	state = {
+contacts: [
   {
     "id": "ryan",
     "name": "Ryan Florence",
@@ -21,13 +27,12 @@ const contacts = [
     "avatarURL": "http://localhost:5001/tyler.jpg"
   }
 ]
-
-
-class App extends Component {
+	}
+//access the state property from inside the component
 	render() {
 		return (
 			<div>
-				<ListContacts contacts={contacts} />
+				<ListContacts contacts={this.state.contacts} />
 			</div>
 		)
 	}
