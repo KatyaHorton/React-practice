@@ -27,12 +27,28 @@ contacts: [
     "avatarURL": "http://localhost:5001/tyler.jpg"
   }
 ]
+		
 	}
+
+//function to remove the contact when delete button is clicked
+// filters out (returns) new contacts array with contacts which ids are not equalt to the id of the contact clicked
+
+  removeContact = (contact) => {
+	  this.setState((state) => ({
+		  contacts: state.contacts.filter((c) => c.id !== contact.id)
+	  }))
+}
+
 //access the state property from inside the component
+//assign removeContcat to the ListContcats component as it's props to access it from ListContacts Component  
 	render() {
 		return (
 			<div>
-				<ListContacts contacts={this.state.contacts} />
+				<ListContacts 
+					contacts={this.state.contacts} 
+					onDeleteContact={this.removeContact}
+					/>
+		
 			</div>
 		)
 	}
