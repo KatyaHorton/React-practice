@@ -17,6 +17,11 @@ updateQuery = (query) => {
 	this.setState({ query: query.trim() })  
 }
 
+//set query to an empty string to show all the contacts again
+clearQuery = (query) => {
+	this.setState({ query: ''})
+}
+
 static PropTypes = {
 	contacts: PropTypes.array.isRequired,
 	onDeleteContact: PropTypes.func.isRequired
@@ -50,6 +55,19 @@ static PropTypes = {
 					value={this.state.query}
 					onChange={(event) => this.updateQuery(event.target.value)}/>
 			</div>
+
+//show count for contacts
+            {showContacts.length !== this.props.contacts.length && (
+				<div className='showing-contacts'>
+				<span>
+						Now showing {showContacts.length} of {this.props.contacts.length} total
+				</span>
+				<button onClick={this.clearQuery}>
+				Show all
+				</button>
+ 				</div> 
+)} 
+   
 			<ol>
 		{showContacts.map((contact) => (
 			<li key={contact.id} className='contact-list-item'>
