@@ -40,12 +40,12 @@ contacts: [
 }
 
 //access the state property from inside the component
-//assign removeContcat to the ListContcats component as it's props to access it from ListContacts Component  
+//assign removeContcat to the ListContcats component as it's props to access it from List 
 	render() {
 		return (
 			<div>
 				<ListContacts 
-					contacts={{}} 
+					contacts={this.state.contacts} 
 					onDeleteContact={this.removeContact}
 					/>
 		

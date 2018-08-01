@@ -1,13 +1,57 @@
 import React, { Component } from 'react'
- import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
+import escapeRegexp from 'escape-string-regexp' 
+import sortBy from 'sort-by'
 
 
 class ListContacts extends Component {
+ 
+//query proprerty updates our input field	
+state = {
+	query:''
+ } 	
+
+//method to handle the change of the inputfiels  (passed into onChange function)
+updateQuery = (query) => {
+// setState is passed an object as the new state will not depent on the previous state) 
+	this.setState({ query: query.trim() })  
+}
+
+static PropTypes = {
+	contacts: PropTypes.array.isRequired,
+	onDeleteContact: PropTypes.func.isRequired
+}
+
+
+//render returns only one element in React
+//value of the input field always is whatever this.state.query
+//onChange - when the input field changes it gives us event, then invokes updateQuery passing it the specific value of the input field
 	render() {
+		let showContacts
+		if (this.state.query) {
+			const match = new RegExp(escapeRegexp(this.state.query), 'i')
+			showContacts = this.props.contacts.filter(
+				(contact) => match.test(contact.name)
+												    )
+		} else {
+			showContacts = this.props.contacts
+		}
+		
+//sorts contacts by name		
+		showContacts.sort(sortBy('name'))
+		
 		return (
+			<div className='list-contacts'>
+			<div className='list-contacts-top'>
+				<input 
+					className='search-contacts'
+					type='text'
+			        placeholder='Serach contacts'
+					value={this.state.query}
+					onChange={(event) => this.updateQuery(event.target.value)}/>
+			</div>
 			<ol>
-			
-		{this.props.contacts.map((contact) => (
+		{showContacts.map((contact) => (
 			<li key={contact.id} className='contact-list-item'>
           <div className='contact-avatar' style={{
             backgroundImage: `url(${contact.avatarURL})`
@@ -23,13 +67,10 @@ class ListContacts extends Component {
 				 ))}
 
 			</ol>
+          </div>
 		)
 	}
 }
 
-ListContacts.PropTypes = {
-	contacts: PropTypes.array.isRequired,
-	onDeleteContact: PropTypes.func.isRequired
-}
 
 export default ListContacts
