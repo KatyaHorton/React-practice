@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import ListContacts from './ListContacts.js'
 import * as ContactsAPI from './utils/ContactsAPI.js'
 import CreateContact from './CreateContact.js'
+import { Route } from 'react-router-dom'
 
 
 class App extends Component {
 	
 //creates a state property which manages the contacts array inside an App component	
 //contacts is an empty array as the data wll be fetched from the server with an 	
-	state = {
-//adds screen to the stste of the component 
-		screen: 'list', //list, create
+	state = {		
 		contacts: []
 	}
 
@@ -39,20 +38,22 @@ componentDidMount(){
 	render() {
 		return (
 			<div>
-	 {this.state.screen === 'list' && (
-					<ListContacts 
+	 <Route exact path='/' render={() => (
+							
+			<ListContacts 
 					contacts={this.state.contacts} 
 					onDeleteContact={this.removeContact}
 					onNavigate = {() => {
-						this.setState({ screen: 'create' })
-		}}
-					/>	  
-	 )}
+						this.setState({ screen: 'create' }) }}
+					/>	
+			
+		)}
+  
+	  />
 	
-		 {this.state.screen === 'create' && (
-					<CreateContact />
-	 )}	 
-					
+    <Route path='/create' component={CreateContact} />
+
+		
 			</div>
 		)
 	}
