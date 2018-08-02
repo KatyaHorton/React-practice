@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ListContacts from './ListContacts.js'
 import * as ContactsAPI from './utils/ContactsAPI.js'
+import CreateContact from './CreateContact.js'
 
 
 class App extends Component {
@@ -8,7 +9,9 @@ class App extends Component {
 //creates a state property which manages the contacts array inside an App component	
 //contacts is an empty array as the data wll be fetched from the server with an 	
 	state = {
-contacts: []
+//adds screen to the stste of the component 
+		screen: 'list', //list, create
+		contacts: []
 	}
 
 componentDidMount(){
@@ -32,14 +35,24 @@ componentDidMount(){
 
 //access the state property from inside the component
 //assign removeContcat to the ListContcats component as it's props to access it from List 
+ // sets the contion (based on the state of the screen) which component to render to our UI
 	render() {
 		return (
 			<div>
-				<ListContacts 
+	 {this.state.screen === 'list' && (
+					<ListContacts 
 					contacts={this.state.contacts} 
 					onDeleteContact={this.removeContact}
-					/>
-		
+					onNavigate = {() => {
+						this.setState({ screen: 'create' })
+		}}
+					/>	  
+	 )}
+	
+		 {this.state.screen === 'create' && (
+					<CreateContact />
+	 )}	 
+					
 			</div>
 		)
 	}
