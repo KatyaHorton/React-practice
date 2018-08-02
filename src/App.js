@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ListContacts from './ListContacts.js'
-
+import * as ContactsAPI from './utils/ContactsAPI.js'
 
 
 class App extends Component {
 	
 //creates a state property which manages the contacts array inside an App component	
+//contacts is an empty array as the data wll be fetched from the server with an 	
 	state = {
-contacts: [
-  {
-    "id": "ryan",
-    "name": "Ryan Florence",
-    "email": "ryan@reacttraining.com",
-    "avatarURL": "http://localhost:5001/ryan.jpg"
-  },
-  {
-    "id": "michael",
-    "name": "Michael Jackson",
-    "email": "michael@reacttraining.com",
-    "avatarURL": "http://localhost:5001/michael.jpg"
-  },
-  {
-    "id": "tyler",
-    "name": "Tyler McGinnis",
-    "email": "tyler@reacttraining.com",
-    "avatarURL": "http://localhost:5001/tyler.jpg"
-  }
-]
-		
+contacts: []
 	}
+
+componentDidMount(){
+		ContactsAPI.getAll().then((contacts) => {
+		this.setState({ contacts: contacts})
+	})}
+
+
 
 //function to remove the contact when delete button is clicked
 // filters out (returns) new contacts array with contacts which ids are not equalt to the id of the contact clicked
@@ -37,6 +25,9 @@ contacts: [
 	  this.setState((state) => ({
 		  contacts: state.contacts.filter((c) => c.id !== contact.id)
 	  }))
+	  
+//sends API request to remove contacts also from the server
+	  ContactsAPI.remove(contact)
 }
 
 //access the state property from inside the component
